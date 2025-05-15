@@ -869,6 +869,10 @@ pub fn read_current_file(env: &dyn Env, dbname: &Path) -> Result<String> {
             "current file is empty or has no newline",
         );
     }
+    if current.ends_with("\r\n") {
+        current.truncate(current.len() - 2);
+        current.push('\n');
+    }
     Ok(current)
 }
 
